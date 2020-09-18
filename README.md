@@ -6,15 +6,17 @@ A dsicord bot thats usefull
 - Create a file called .env
 - Paste the following into it:
 ```sh
+OWNER_ID=<your discord id here>
 DISCORD_TOKEN=<your discord bot token here>
 KSOFT_TOKEN=<your ksoft.si token here>
-DBL_TOKEN=<your dsicord bot list token here>
+HYPIXEL_TOKEN=<your hypixel api key here>
 ```
 e.g.
 ```sh
-DISCORD_TOKEN=abcdefghi7373737
-KSOFT_TOKEN=GDShgJHSgdjSHdg
-DBL_TOKEN=0OooO00OooO00OooO0
+OWNER_ID=569414372959584256
+DISCORD_TOKEN="abcdefghi7373737"
+KSOFT_TOKEN="qwwertyuiopasdfghjlzxcvbnm"
+HYPIXEL_TOKEN="0OooO00OooO00OooO0"
 ```
 - run `bot.py`
 ```sh
