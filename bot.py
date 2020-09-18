@@ -1,5 +1,5 @@
-import discord
 from discord.ext import commands
+import ksoftapi
 
 # Load environment variables if they aren't loaded yet
 if not os.getenv("DISCORD_TOKEN"):
@@ -9,6 +9,7 @@ if not os.getenv("DISCORD_TOKEN"):
 class Client(commands.Bot):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
+		self.ksoft = ksoftapi.Client(os.getEnv("KSOFT_TOKEN"))
 
 	async def on_ready(self):
 		print(f"Logged in to discord as {self.user.name}#{self.user.tag}")
