@@ -26,3 +26,4 @@ python bot.py
 py bot.py
 # Different commands seem to work for different people. Idk why though.
 ```
+- Add it you your server with the url provided in console
