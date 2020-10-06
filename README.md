@@ -13,11 +13,11 @@ A dsicord bot thats usefull
   "hypixel_token": "", // Your Hypixel API key goes here
   "join_message": "", // Your bot's server join message
   "owners": [], // An array with the Discord user IDs of people who you want to have ABSOLUTE POWER over your bot. Note: people with this perm could theoreticly wipe your server so please do be careful who you put in here
-  "prefix": [], // Prefixes for the bot to respond to
+  "prefixes": [], // Prefixes for the bot to respond to
   "use_custom_activity": true, // Wether to use the *playing* activity defined below or not
   "activity": "", // Text that displays after 'PLAYING '
-  "activity_type": "", // one of `playing`, `watching`, `listening` or `competing`
-  "status_type": "" // one of `online`, `idle` or `dnd`
+  "activity_type": "", // `playing`, `watching`, `listening` or `competing`
+  "status_type": "" // `online`, `idle` or `dnd`
 }
 
 ```
@@ -32,7 +32,8 @@ A dsicord bot thats usefull
   "owners": [
     569414372959584256
   ],
-  "prefix": [
+  "prefixes": [
+    "!",
     "$"
   ],
   "use_custom_activity": true,
