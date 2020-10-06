@@ -16,9 +16,12 @@ client = Robot(
 	case_insensitive=True,
 	owner_id=os.getenv("OWNER_ID")
 )
+print(os.getenv("OWNER_ID"))
 
+# Load dem extentions
 extensions = [
-    "cogs.mod"
+    "cogs.mod",
+	"cogs."
 ]
 
 for cog in extensions:
