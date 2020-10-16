@@ -5,7 +5,6 @@ class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.event()
 	async def on_command_error(self, ctx, err):
 		if (isinstance(err, commands.CommandNotFound)):
 			return
