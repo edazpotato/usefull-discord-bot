@@ -1,6 +1,7 @@
 import os
 import asyncio
 from utils import robot, usefull
+import discord
 from discord.ext import commands
 
 
