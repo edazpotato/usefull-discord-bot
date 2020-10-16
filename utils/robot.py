@@ -13,7 +13,7 @@ c = usefull.colors
 class EpicContext(commands.Context):
 	pass
 
-class Robot(commands.Bot):
+class Robot(commands.AutoShardedBot):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -48,15 +48,16 @@ class Robot(commands.Bot):
 			status_color_code = c.FAIL
 
 		activity_types = {"listening": 2, "watching": 3, "competing": 5}
+		activity_num = activity_types.get(activity_type, 0)
 		try:
 			await self.change_presence(
 				activity=discord.Activity(
-					type=activity_types.get(activity_type, 0),
+					type=activity_num,
 					name=activity_name
 				),
 				status=status_type
 			)
-			print(f"Set presence to: [{status_color_code}{status_type}{c.END}] {c.BOLD}{activity_type.upper()} {activity_name.upper()}{c.END}")
+			print(f"Set presence to: [{status_color_code}{status_type}{c.END}] {c.BOLD}{activity_type.upper()}{" in"if activity_num == 5} {activity_name}{c.END}")
 		except Exception as err:
 			print(f"Error setting status: {err}")
 
