@@ -7,10 +7,17 @@ from discord.ext import commands
 # Load config
 config = usefull.load("config.json")
 
+# Configure intents
+intents = discord.Intents.default()
+# Set priviliged intents based off of config
+intents.members = config.intents.members
+intents.presences = config.intents.presences
+
 client = robot.Robot(
 	command_prefix=commands.when_mentioned_or(*config.prefixes),
 	case_insensitive=True,
-	owner_id=config.owners
+	owner_id=config.owners,
+	intents=intents
 )
 
 # Load dem extentions
