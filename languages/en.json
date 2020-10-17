@@ -1,5 +1,8 @@
 {
-	"TEST": "Hello, world!",
-	"POTATO": "yes",
-	"UWU": "What's this?"
+	"ERR_COMMAND_RATELIMIT": "Whoa, slow down there!\nPlease wait {0.retry_after} seconds before trying again.",
+	"ERR_COMMAND_MISSING_REQ_PARAM": "You need to provide the `{0.param}` parameter for this command.",
+	"ERR_COMMAND_ARG_PARSE": "Please provide arguments in the format specified in the help command.",
+	"ERR_COMMAND_DM_ONLY": "Sorry, but this command only works in DM's.",
+	"ERR_COMMAND_NO_DM.": "Sorry, but this command doesn't work in DM's",
+	"ERR_COMMAND_DISABLED": "Sorry, but this command is curently disabled here."
 }

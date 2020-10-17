@@ -26,24 +26,24 @@ class ModActionReason(commands.Converter):
             raise commands.BadArgument(f'reason is too long ({len(argument)}/{reason_max})')
         return ret
 
-async def actionEmbed(ctx, action, mod, member, reason="No offence given."):
-	embed = discord.Embed()
-	embed.title = action
-	embed.description = f"{member.name}#{member.descriminator} was {action}ed for {reason}"
-	embed.timestamp = datetime.datetime.utcnow()
-	embed.add_field(name="Offender", value=f"`{member.name}#{member.descriminator}`\n`{member.id}`")
-	embed.add_field(name="Offence", value=reason)
-	embed.add_field(name="Moderator", value=f"`{mod.name}#{mod.descriminator}`\n`{mod.id}`")
-	embed.add_field(name="Punsihment", value=action)
-	return await ctx.send(embed=embed)
-
-def actionReason(action, mod, member, reason="no reason given."):
-	return f"{member.id} was kicked by {mod.id} via {ctx.guild.me.id} for {reason}"
-
 
 class Moderation(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+
+	async def actionEmbed(self, ctx, action, mod, member, reason="No offence given."):
+		embed = discord.Embed()
+		embed.title = action
+		embed.description = f"{member} was {action}ed for {reason}"
+		embed.timestamp = datetime.datetime.utcnow()
+		embed.add_field(name="Offender", value=f"`{member}`\n`{member.id}`")
+		embed.add_field(name="Offence", value=reason)
+		embed.add_field(name="Moderator", value=f"`{mod}`\n`{mod.id}`")
+		embed.add_field(name="Punsihment", value=action)
+		return await ctx.send(embed=embed)
+
+	def actionReason(self, action, mod, member, reason="no reason given."):
+		return f"{member.id} was kicked by {mod.id} for {reason}"
 
 	@commands.command()
 	@commands.bot_has_permissions(kick_members=True)
@@ -51,8 +51,8 @@ class Moderation(commands.Cog):
 	async def kick(self, ctx, member: discord.Member, *, reason: ModActionReason="no reason provided."):
 		if await permissions.check_priv(ctx, member):
 			return
-		await member.kick(reason=actionReason("kick", ctx.author, member, reason))
-		await actionEmbed(ctx, "kick", ctx.author, member, reason)
+		await member.kick(reason=self.actionReason("kick", ctx.author, member, reason))
+		await self.actionEmbed(ctx, "kick", ctx.author, member, reason)
 
 
 def setup(bot):

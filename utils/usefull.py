@@ -10,6 +10,19 @@ def load(file):
     except FileNotFoundError:
         raise FileNotFoundError("JSON file wasn't found")
 
+class Slow():
+    def __init__(self, ctx):
+        self.emoji = ctx.bot.emoji
+        self.ctx = ctx
+
+    async def __aenter__(self):
+        self.message = await self.ctx.send(f"{self.emoji.loading} This may take a moment...")
+
+    async def __aexit__(self, exc_type, exc_value, tb):
+        if exc_type is not None:
+            traceback.print_exception(exc_type, exc_value, tb)
+        await self.message.delete()
+
 class colors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'

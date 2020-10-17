@@ -17,7 +17,7 @@ intents.presences = config.intents.presences
 client = robot.Robot(
 	command_prefix=commands.when_mentioned_or(*config.prefixes),
 	case_insensitive=True,
-	owner_id=config.owners,
+	owner_ids=config.owners,
 	intents=intents
 )
 
@@ -26,5 +26,7 @@ for file in os.listdir("cogs"):
     if file.endswith(".py"):
         name = file[:-3]
         client.load_extension(f"cogs.{name}")
+# jishaku is special
+client.load_extension("jishaku")
 
 client.run(config.token)
