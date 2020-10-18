@@ -1,4 +1,4 @@
 discord.py[voice]
 ksoftapi
 jishaku
-youtube_dl
+statcord.py

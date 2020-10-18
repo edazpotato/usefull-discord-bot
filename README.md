@@ -8,9 +8,11 @@ A dsicord bot thats usefull
 ```js
 {
   "version": "",               // Version number of the bot. Shows up in info command (string not a number btw)
-  "token": "",                 //Your Discord token goes here
+  "token": "",                 // Your Discord production bot token goes here
+  "dev_token": "",             // Your Discord development bot token goes here
   "ksoft_token": "",           // Your Ksoft.Si token goes here
   "hypixel_token": "",         // Your Hypixel API key goes here
+  "statcord_token": "",        // Your bot's statcord token
   "join_message": "",          // Your bot's server join message
   "intents": {},               // Set privilged intents here
   "owners": [],                // An array with the Discord user IDs of people who you want to have ABSOLUTE POWER over your bot. Note: people with this perm could theoreticly wipe your server so please do be careful who you put in here
@@ -28,8 +30,10 @@ A dsicord bot thats usefull
 {
   "version": "6.9",
   "token": "uwuwhatsthishehe",
+  "dev_token": "aaaaaaaaaaaaaaaa",
   "ksoft_token": "doeraymesofarsewlateadoe",
   "hypixel_token": "hehehehehehehehehehehehe",
+  "statcord_token": "statcord.com-uwuowouwuowo",
   "join_message": "FEAR ME,  ***M O R T A L S ! ! !***",
   "intents": {
     "presences": false,

@@ -5,47 +5,43 @@ import os
 import json
 import datetime
 import time
+import sys
 from utils import permissions, usefull
+from main import context
 from discord.ext import commands
 from collections import namedtuple
 
 c = usefull.colors
 
-class EpicContext(commands.Context):
-	async def error(self, msg: str, **kwargs):
-		await self.send(f"{self.bot.emoji.no} {msg}", **kwargs)
-	async def warning(self, msg: str, **kwargs):
-		await self.send(f"{self.bot.emoji.maybe} {msg}", **kwargs)
-	async def success(self, msg: str, **kwargs):
-		await self.send(f"{self.bot.emoji.yes} {msg}", **kwargs)
-
-	@property
-	def lang(self):
-		return self.bot.langs[0]
-
-	@property
-	def strings(self):
-		return self.bot.strings[self.lang]
-
 class Robot(commands.AutoShardedBot):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
+		# Load config
 		self.config = usefull.load("config.json")
+		# Ksoft.Si wrapper
 		self.ksoft = ksoftapi.Client(self.config.ksoft_token)
 		# Languages!
-		self.langs = ["en"]
+		self.langs = []
 		self.strings = {}
-		self.load_langs()
+		self.load_languages()
+		# Emojis
 		self.emoji = self.config.emoji
-
-	def load_langs(self):
+		# Development enviorment?
+		self.dev = False
+		# was a command line arg passed?
+		# yes this is a bad way to do this. Too bad
+		if (len(sys.argv) > 1):
+			self.dev = True
+		print(f"{c.OKCYAN}Dev env:                              {c.OKBLUE}{str(self.dev)}{c.END}")
+	def load_languages(self):
+		self.langs = usefull.load(f"languages/langs.json")
 		for lang in self.langs:
 			try:
-				self.strings[lang] = usefull.load(f"languages/{lang}.json")
-				print(f"{c.OKCYAN}Loaded language {c.OKBLUE}{lang}{c.END}")
+				self.strings[lang.code] = usefull.load(f"languages/{lang.code}.json")
+				print(f"{c.OKCYAN}Loaded language:                      {c.OKBLUE}{lang.name}{c.END}")
 			except Exception as err:
-				print(f"{c.FAIL}Error loading language {c.WARNING}{lang}{c.END}: {err}")
+				print(f"{c.FAIL}Error loading language: {c.WARNING}{lang.name}{c.END}: {err}")
 
 	async def update_presence(self, activity_type=None, activity_name=None, status_type=None):
 		# Use defualts if they aren't provided
@@ -69,7 +65,7 @@ class Robot(commands.AutoShardedBot):
 		activity_num = activity_types.get(activity_type, 0)
 		activity_name_extra = ""
 		if activity_num == 5:
-			activity_name_extra = " in"
+			activity_name_extra = " IN"
 		try:
 			await self.change_presence(
 				activity=discord.Activity(
@@ -78,18 +74,20 @@ class Robot(commands.AutoShardedBot):
 				),
 				status=status_type
 			)
-			print(f"{c.OKCYAN}Set presence to:{c.END} [{status_color_code}{status_type}{c.END}] {c.BOLD}{activity_type.upper()+activity_name_extra} {activity_name}{c.END}")
+			print(f"{c.OKCYAN}Set presence to:                      {c.END}[{status_color_code}{status_type}{c.END}] {c.BOLD}{activity_type.upper()+activity_name_extra} {activity_name}{c.END}")
 		except Exception as err:
-			print(f"{c.FAIl}Error setting status{c.END}: {err}")
+			print(f"{c.FAIl}Error setting status:{c.END} {err}")
 
+	# handele commands yes
 	async def handle_commands(self, msg):
 		if not self.is_ready() or msg.author.bot or not permissions.can_send(msg):
 			return
-		ctx = await self.get_context(msg, cls=EpicContext)
+		ctx = await self.get_context(msg, cls=context.Context)
 		await self.invoke(ctx)
 
+	# events
 	async def on_ready(self):
-		print(f"{c.OKCYAN}Logged in to discord as {c.OKBLUE}{self.user.name}#{self.user.discriminator}{c.END}")
+		print(f"{c.OKCYAN}Logged in to discord as:              {c.OKBLUE}{self.user.name}#{self.user.discriminator}{c.END}")
 		perms_int = 2146958847
 		print(f"{c.OKCYAN}Add me you your server with this url: {c.OKGREEN}https://discord.com/oauth2/authorize?client_id={self.user.id}&scope=bot&permissions={perms_int}{c.END}")
 		await self.update_presence()

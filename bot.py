@@ -1,6 +1,7 @@
 import os
 import asyncio
-from utils import robot, usefull
+from utils import usefull
+from main import robot
 import discord
 from discord.ext import commands
 
@@ -29,4 +30,8 @@ for file in os.listdir("cogs"):
 # jishaku is special
 client.load_extension("jishaku")
 
-client.run(config.token)
+token = config.token
+if client.dev:
+	token = config.dev_token
+
+client.run()

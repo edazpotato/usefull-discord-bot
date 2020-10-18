@@ -14,18 +14,43 @@ owners = [os.getenv("OWNER_ID")]
 def is_owner(ctx):
     return ctx.author.id in owners
 
+# Custom errors
+class AuthorLacksPermssions(commands.CheckFailure):
+    """Raised when the author of a command does not have sufficent permissions to execute it"""
+    pass
+class BotLacksPermssions(commands.CheckFailure):
+    """Raised when the bot does not have sufficent permissions to execute the command"""
+    pass
 
-async def check_permissions(ctx, perms, *, check=all):
+# author checks
+async def check_author_permissions(ctx, perms, *, check=all):
     if ctx.author.id in owners:
         return True
 
     resolved = ctx.channel.permissions_for(ctx.author)
     return check(getattr(resolved, name, None) == value for name, value in perms.items())
 
-
-def has_permissions(*, check=all, **perms):
+# decorator
+def author_has_permissions(*, check=all, **perms):
     async def pred(ctx):
-        return await check_permissions(ctx, perms, check=check)
+        if (not await check_author_permissions(ctx, perms, check=check)):
+            raise AuthorLacksPermssions(perms=perms)
+        return True
+
+    return commands.check(pred)
+
+# Bot checks
+async def check_bot_permissions(ctx, perms, *, check=all):
+    resolved = ctx.channel.permissions_for(ctx.me)
+    return check(getattr(resolved, name, None) == value for name, value in perms.items())
+
+# decorator
+def bot_has_permissions(*, check=all, **perms):
+    async def pred(ctx):
+        if (not await check_bot_permissions(ctx, perms, check=check)):
+            raise BotLacksPermssions(perms=perms)
+        return True
+
     return commands.check(pred)
 
 
@@ -33,9 +58,15 @@ async def check_priv(ctx, member):
     try:
         # Self checks
         if member == ctx.author:
-            return await ctx.send(f"Sorry, but you can't {ctx.command.name} yourself.")
+            return await ctx.error(f"Sorry, but you can't {ctx.command.name} yourself.")
         if member.id == ctx.bot.user.id:
-            return await ctx.send("No u")
+            return await ctx.error("No u")
+
+        # Check if the bot can do stuff
+        if ctx.guild.me == member.top_role:
+            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on someone who is equal in power to me.")
+        if ctx.guild.me < member.top_role:
+            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on someone higher than me.")
 
         # Check if user bypasses
         if ctx.author.id == ctx.guild.owner.id:
@@ -44,15 +75,15 @@ async def check_priv(ctx, member):
         # Now permission check
         if member.id in owners:
             if ctx.author.id not in owners:
-                return await ctx.send(f"Sorry, but {ctx.command.name} doesn't work on the dev m8.")
+                return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on the dev m8.")
             else:
                 pass
         if member.id == ctx.guild.owner.id:
-            return await ctx.send(f"Sorry, but {ctx.command.name} doesn't work on the owner m8.")
+            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on the owner.")
         if ctx.author.top_role == member.top_role:
-            return await ctx.send(f"Sorry, but {ctx.command.name} doesn't work on someone who is equal in power to oneself.")
+            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on someone who is equal in power to oneself.")
         if ctx.author.top_role < member.top_role:
-            return await ctx.send(f"Sorry, but {ctx.command.name} doesn't work on someone higher than you.")
+            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on someone higher than you.")
     except Exception:
         pass
 

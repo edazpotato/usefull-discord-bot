@@ -2,7 +2,7 @@ import sys
 import traceback
 import discord
 from discord.ext import commands, tasks
-from utils import usefull
+from utils import usefull, permissions
 
 c = usefull.colors
 
@@ -28,9 +28,6 @@ class Events(commands.Cog):
 		if isinstance(err, ignored):
 			return
 
-		# User feedback via reactions
-		await ctx.message.add_reaction(self.bot.emoji.no)
-
 		# H A N D L E R S
 		if (isinstance(err, commands.MissingRequiredArgument)):
 			await ctx.error(ctx.strings.ERR_COMMAND_MISSING_REQ_PARAM.format(err))
@@ -43,10 +40,23 @@ class Events(commands.Cog):
 		elif (isinstance(err, commands.DisabledCommand)):
 			await ctx.error(ctx.strings.ERR_COMMAND_DISABLED.format(err))
 		elif (isinstance(err, commands.CommandOnCooldown)):
-			await ctx.error(ctx.strings.ERR_COMMAND_RATELIMIT.format(err))
+			await ctx.error(ctx.strings.ERR_COMMAND_ON_COOLDOWN.format(err))
+		elif (isinstance(err, commands.MemberNotFound)):
+			await ctx.error(ctx.strings.ERR_COMMAND_MEMBER_NOT_FOUND.format(err))
+		elif (isinstance(err, permissions.AuthorLacksPermissions)):
+			await ctx.error(ctx.strings.ERR_COMMAND_AUTHOR_LACKS_PERMS.format(err))
+		elif (isinstance(err, permissions.BotLacksPermissions)):
+			await ctx.error(ctx.strings.ERR_COMMAND_BOT_LACKS_PERMS.format(err))
 		else:
-			print(f'{c.FAIL}Ignoring exception in command {ctx.command}{c.END}:', file=sys.stderr)
-			traceback.print_exception(type(err), err, err.__traceback__, file=sys.stderr)
+			# User feedback via reactions
+			if (self.bot.dev):
+				tracebackString = "".join(traceback.format_exception(type(err), err, err.__traceback__))
+				await ctx.warning(f"Ignoring exception in command {ctx.command}:")
+				await ctx.send(f"```py\n{tracebackString}\n```")
+			else:
+				await ctx.message.add_reaction(self.bot.emoji.no)
+				print(f"{c.FAIL}Ignoring exception in command {ctx.command}{c.END}:", file=sys.stderr)
+				traceback.print_exception(type(err), err, err.__traceback__, file=sys.stderr)
 
 
 def setup(bot):

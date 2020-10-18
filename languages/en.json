@@ -1,8 +1,11 @@
 {
-	"ERR_COMMAND_RATELIMIT": "Whoa, slow down there!\nPlease wait {0.retry_after} seconds before trying again.",
 	"ERR_COMMAND_MISSING_REQ_PARAM": "You need to provide the `{0.param}` parameter for this command.",
 	"ERR_COMMAND_ARG_PARSE": "Please provide arguments in the format specified in the help command.",
 	"ERR_COMMAND_DM_ONLY": "Sorry, but this command only works in DM's.",
-	"ERR_COMMAND_NO_DM.": "Sorry, but this command doesn't work in DM's",
-	"ERR_COMMAND_DISABLED": "Sorry, but this command is curently disabled here."
+	"ERR_COMMAND_NO_DM": "Sorry, but this command doesn't work in DM's",
+	"ERR_COMMAND_DISABLED": "Sorry, but this command is curently disabled here.",
+	"ERR_COMMAND_ON_COOLDOWN": "Whoa, slow down there!\nPlease wait {0.retry_after} seconds before trying again.",
+	"ERR_COMMAND_MEMBER_NOT_FOUND": "Sorry, but I can't find anyone called {0.argument}.",
+	"ERR_COMMAND_AUTHOR_LACKS_PERMS": "Sorry, but you don't have permission to do that.\nIf this is an error, please ask your server administrator to give you these permissions ```{'\n'.join(0.perms)}```",
+	"ERR_COMMAND_BOT_LACKS_PERMS": "Sorry, but I don't have permission to do that.\nPlease ask your server administrator to give me these permissions ```{'\n'.join(0.perms)}```"
 }
