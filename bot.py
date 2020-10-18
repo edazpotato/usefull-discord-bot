@@ -34,4 +34,4 @@ token = config.token
 if client.dev:
 	token = config.dev_token
 
-client.run()
+client.run(token)
