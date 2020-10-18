@@ -7,5 +7,13 @@
 	"ERR_COMMAND_ON_COOLDOWN": "Whoa, slow down there!\nPlease wait {0.retry_after} seconds before trying again.",
 	"ERR_COMMAND_MEMBER_NOT_FOUND": "Sorry, but I can't find anyone called {0.argument}.",
 	"ERR_COMMAND_AUTHOR_LACKS_PERMS": "Sorry, but you don't have permission to do that.\nIf this is an error, please ask your server administrator to give you these permissions ```{'\n'.join(0.perms)}```",
-	"ERR_COMMAND_BOT_LACKS_PERMS": "Sorry, but I don't have permission to do that.\nPlease ask your server administrator to give me these permissions ```{'\n'.join(0.perms)}```"
+	"ERR_COMMAND_BOT_LACKS_PERMS": "Sorry, but I don't have permission to do that.\nPlease ask your server administrator to give me these permissions ```{'\n'.join(0.perms)}```",
+	"ERR_MOD_CANNOT_PUNNISH_SELF": "Sorry, but you can't {0.command.name} yourself.",
+	"ERR_MOD_CANNOT_PUNNISH_BOT": "Sorry, but you can't {0.command.name} me.",
+	"ERR_MOD_CANNOT_PUNNISH_BOT_EQUAL": "Sorry, but you can't {0.comamnd.name} someone who's top role is the same as mine.",
+	"ERR_MOD_CANNOT_PUNNISH_BOT_HIGHER": "Sorry, but you can't {0.command.name} someone who's top role is higher than mine.",
+	"ERR_MOD_CANNOT_PUNNISH_BOT_OWNER": "Sorry, but you can't {0.command.name} my creator.",
+	"ERR_MOD_CANNOT_PUNNISH_GUILD_OWNER": "Sorry, but you can't {0.command.name} the owner.",
+	"ERR_MOD_CANNOT_PUNNISH_AUTHOR_EQUAL": "Sorry, but you can't {0.command.name} someone who's top role is equal to yours.",
+	"ERR_MOD_CANNOT_PUNNISH_AUTHOR_HIGHER": "Sorry, but you can't {0.command.name} someone who's top role is higher than yours"
 }

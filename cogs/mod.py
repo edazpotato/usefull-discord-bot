@@ -49,7 +49,7 @@ class Moderation(commands.Cog):
 	@permissions.bot_has_permissions(kick_members=True)
 	@permissions.author_has_permissions(kick_members=True)
 	async def kick(self, ctx, member: discord.Member, *, reason: ModActionReason="no reason provided."):
-		if await permissions.check_priv(ctx, member) == True:
+		if await permissions.check_priv(ctx, member) is not False:
 			return
 		await member.kick(reason=self.actionReason("kick", ctx.author, member, reason))
 		await self.actionEmbed(ctx, "kick", ctx.author, member, reason)

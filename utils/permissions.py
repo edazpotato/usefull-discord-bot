@@ -58,32 +58,31 @@ async def check_priv(ctx, member):
     try:
         # Self checks
         if member == ctx.author:
-            return await ctx.error(f"Sorry, but you can't {ctx.command.name} yourself.")
+            return await ctx.error(ctx.strings.ERR_MOD_CANNOT_PUNNISH_SELF.format(ctx))
         if member.id == ctx.bot.user.id:
-            return await ctx.error("No u")
+            return await ctx.error(ctx.strings.ERR_MOD_CANNOT_PUNNISH_BOT.format(ctx))
 
         # Check if the bot can do stuff
         if ctx.guild.me == member.top_role:
-            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on someone who is equal in power to me.")
+            return await ctx.error(ctx.strings.ERR_MOD_CANNOT_PUNNISH_BOT_EQUAL.format(ctx))
         if ctx.guild.me < member.top_role:
-            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on someone higher than me.")
-
-        # Check if user bypasses
-        if ctx.author.id == ctx.guild.owner.id:
-            return False
+            return await ctx.error(ctx.strings.ERR_MOD_CANNOT_PUNNISH_BOT_HIGHER.format(ctx))
 
         # Now permission check
         if member.id in owners:
-            if ctx.author.id not in owners:
-                return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on the dev m8.")
-            else:
-                pass
+            return await ctx.error(ctx.strings.ERR_MOD_CANNOT_PUNNISH_BOT_OWNER.format(ctx))
+
+        # Check if user bypasses
+        if (ctx.author.id == ctx.guild.owner.id) or (ctx.author.id in owners):
+            return False
+
         if member.id == ctx.guild.owner.id:
-            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on the owner.")
+            return await ctx.error(ctx.strings.ERR_MOD_CANNOT_PUNNISH_GUILD_OWNER.format(ctx))
         if ctx.author.top_role == member.top_role:
-            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on someone who is equal in power to oneself.")
+            return await ctx.error(ctx.strings.ERR_MOD_CANNOT_PUNNISH_AUTHOR_EQUAL.format(ctx))
         if ctx.author.top_role < member.top_role:
-            return await ctx.error(f"Sorry, but {ctx.command.name} doesn't work on someone higher than you.")
+            return await ctx.error(ctx.strings.ERR_MOD_CANNOT_PUNNISH_AUTHOR_HIGHER.format(ctx))
+        return False
     except Exception:
         pass
 
