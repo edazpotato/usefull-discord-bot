@@ -3,8 +3,7 @@ A dsicord bot thats usefull
 
 
 ### Setup
-- Create a file called `config.json`
-- Paste the following into it:
+- `config.json` layout
 ```js
 {
   "version": "",               // Version number of the bot. Shows up in info command (string not a number btw)
@@ -26,7 +25,7 @@ A dsicord bot thats usefull
 }
 
 ```
-- fill in the values. e.g.
+- example values:
 ```json
 {
   "version": "6.9",
@@ -62,19 +61,10 @@ A dsicord bot thats usefull
 }
 
 ```
-> **IMPORTANT NOTE:** If you don't have the `members` intent enabled, commands that use a discord.User or discord.Member converter will only work with mentions
-- install required packages
-```sh
-pip install -r requirements.txt
-```
-- run `bot.py`
-```sh
-# Start it with this:
-python3 bot.py
-# Or this:
-python bot.py
-# Or this:
-py bot.py
-# Different commands seem to work for different people. Idk why though.
-```
-- Add it you your server with the url provided in console
+> **IMPORTANT NOTE:** If you don't have the `members` intent enabled, commands that use a `discord.User` or `discord.Member` converter will only work with mentions
+
+# Self Hosting
+No support will be provided if you try and self host this bot. It is open source for educational purposes only
+
+# Licence
+This project is licenced under the MIT LICENCE. You can read more in the [Licence file](LICENCE).
