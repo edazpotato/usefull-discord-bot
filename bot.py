@@ -1,9 +1,11 @@
 import os
 import asyncio
+import sys
+import discord
 from utils import usefull
 from main import robot
-import discord
 from discord.ext import commands
+from jishaku.help_command import DefaultEmbedPaginatorHelp
 
 
 # Load config
@@ -15,8 +17,18 @@ intents = discord.Intents.default()
 intents.members = config.intents.members
 intents.presences = config.intents.presences
 
+dev = False
+# was a command line arg passed?
+# yes this is a bad way to do this. Too bad
+if (len(sys.argv) > 1):
+	dev = True
+
+prefixes = config.prefixes
+if dev:
+	prefixes = config.dev_prefixes
+
 client = robot.Robot(
-	command_prefix=commands.when_mentioned_or(*config.prefixes),
+	command_prefix=commands.when_mentioned_or(*prefixes),
 	case_insensitive=True,
 	owner_ids=config.owners,
 	intents=intents

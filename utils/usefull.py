@@ -12,7 +12,7 @@ def load(file):
 
 class Slow():
     def __init__(self, ctx):
-        self.emoji = ctx.bot.emoji
+        self.emoji = ctx.bot.config.emoji
         self.ctx = ctx
 
     async def __aenter__(self):

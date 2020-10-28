@@ -308,13 +308,20 @@ class PaginatorEmbedInterface(PaginatorInterface):
 
     def __init__(self, *args, **kwargs):
         self._embed = kwargs.pop('embed', None) or discord.Embed()
+        self._footer = kwargs.pop('footer', None) or {"text": "", "icon_url": None}
         super().__init__(*args, **kwargs)
 
     @property
     def send_kwargs(self) -> dict:
         display_page = self.display_page
         self._embed.description = self.pages[display_page]
-        self._embed.set_footer(text=f'Page {display_page + 1}/{self.page_count}')
+        footer_text = f'Page {display_page + 1}/{self.page_count}'
+        if self._footer["text"] != "":
+            footer_text = f'{self._footer["text"]} | Page {display_page + 1}/{self.page_count}'
+        if self._footer["icon_url"]:
+            self._embed.set_footer(text=footer_text, icon_url=self._footer["icon_url"])
+        else:
+            self._embed.set_footer(text=footer_text)
         return {'embed': self._embed}
 
     max_page_size = 2048

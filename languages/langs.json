@@ -3,5 +3,10 @@
 		"code": "en",
 		"name": "English",
 		"description": "The English language, duh"
+	},
+	{
+		"code": "wizard",
+		"name": "Wizard speak",
+		"description": "The Language of Gandalf and Dumbledore"
 	}
 ]

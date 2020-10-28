@@ -43,10 +43,18 @@ class Events(commands.Cog):
 			await ctx.error(ctx.strings.ERR_COMMAND_ON_COOLDOWN.format(err))
 		elif (isinstance(err, commands.MemberNotFound)):
 			await ctx.error(ctx.strings.ERR_COMMAND_MEMBER_NOT_FOUND.format(err))
-		elif (isinstance(err, permissions.AuthorLacksPermissions)):
+		elif (isinstance(err, permissions.AuthorLacksPermssions)):
 			await ctx.error(ctx.strings.ERR_COMMAND_AUTHOR_LACKS_PERMS.format(err))
-		elif (isinstance(err, permissions.BotLacksPermissions)):
+		elif (isinstance(err, permissions.BotLacksPermssions)):
 			await ctx.error(ctx.strings.ERR_COMMAND_BOT_LACKS_PERMS.format(err))
+		elif (isinstance(err, commands.UserNotFound)):
+			await ctx.error(ctx.strings.ERR_USER_NOT_FOUND.format(err))
+		elif (isinstance(err, commands.NotOwner)):
+			await ctx.error(ctx.strings.ERR_NOT_OWNER.format(err))
+		elif (isinstance(err, discord.NotFound)):
+			await ctx.error(ctx.strings.ERR_FORBIDDEN.format(err))
+		elif (isinstance(err, discord.Forbidden)):
+			await ctx.error(ctx.strings.ERR_FORBIDDEN.format(err))
 		else:
 			# User feedback via reactions
 			if (self.bot.dev):
@@ -54,7 +62,7 @@ class Events(commands.Cog):
 				await ctx.warning(f"Ignoring exception in command {ctx.command}:")
 				await ctx.send(f"```py\n{tracebackString}\n```")
 			else:
-				await ctx.message.add_reaction(self.bot.emoji.no)
+				await ctx.message.add_reaction(ctx.emoji.no)
 				print(f"{c.FAIL}Ignoring exception in command {ctx.command}{c.END}:", file=sys.stderr)
 				traceback.print_exception(type(err), err, err.__traceback__, file=sys.stderr)
 

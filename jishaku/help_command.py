@@ -33,7 +33,7 @@ class DefaultPaginatorHelp(commands.DefaultHelpCommand):
         await interface.send_to(destination)
 
 
-class DefaultEmbedPaginatorHelp(commands.DefaultHelpCommand):
+class DefaultEmbedPaginatorHelp(commands.HelpCommand):
     """
     A subclass of :class:`commands.DefaultHelpCommand` that uses a PaginatorEmbedInterface for pages.
     """

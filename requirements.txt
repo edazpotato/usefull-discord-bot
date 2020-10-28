@@ -2,3 +2,5 @@ discord.py[voice]
 ksoftapi
 jishaku
 statcord.py
+asyncpg
+python-dateutil

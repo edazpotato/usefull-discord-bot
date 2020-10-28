@@ -17,6 +17,7 @@ A dsicord bot thats usefull
   "intents": {},               // Set privilged intents here
   "owners": [],                // An array with the Discord user IDs of people who you want to have ABSOLUTE POWER over your bot. Note: people with this perm could theoreticly wipe your server so please do be careful who you put in here
   "prefixes": [],              // Prefixes for the bot to respond to
+  "dev_prefixes": [],          // Prefixes for the dev version of the bot to respond to
   "emoji": {},                 // Custom emoji to use in varoius situations (can be animated or non-animated)
   "use_custom_activity": true, // Wether to use the *playing* activity defined below or not
   "activity": "",              // Text that displays after 'PLAYING '
@@ -37,14 +38,16 @@ A dsicord bot thats usefull
   "join_message": "FEAR ME,  ***M O R T A L S ! ! !***",
   "intents": {
     "presences": false,
-    "members": false
+    "members": true
   },
   "owners": [
     569414372959584256
   ],
   "prefixes": [
-    "!",
     "$"
+  ],
+  "dev_prefixes": [
+    "!"
   ],
   "emoji": {
     "yes": "<a:aye:713222235820654642>",
@@ -59,6 +62,7 @@ A dsicord bot thats usefull
 }
 
 ```
+> **IMPORTANT NOTE:** If you don't have the `members` intent enabled, commands that use a discord.User or discord.Member converter will only work with mentions
 - install required packages
 ```sh
 pip install -r requirements.txt
