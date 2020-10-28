@@ -5,6 +5,7 @@ A dsicord bot thats usefull
 ### Setup
 <details>
   <summary>Deatils on seeting up the bot</summary>
+  
   - `config.json` layout
   ```js
   {
