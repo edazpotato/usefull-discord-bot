@@ -67,4 +67,4 @@ A dsicord bot thats usefull
 No support will be provided if you try and self host this bot. It is open source for educational purposes only
 
 # Licence
-This project is licenced under the MIT LICENCE. You can read more in the [Licence file](LICENCE).
+This project is licenced under the MIT LICENCE. You can read more in the [License file](LICENSE).
