@@ -3,6 +3,8 @@ A dsicord bot thats usefull
 
 
 ### Setup
+<details>
+  <summary>Deatils on seeting up the bot</summary>
 - `config.json` layout
 ```js
 {
@@ -23,7 +25,6 @@ A dsicord bot thats usefull
   "activity_type": "",         // `playing`, `watching`, `listening` or `competing`
   "status_type": ""            // `online`, `idle` or `dnd`
 }
-
 ```
 - example values:
 ```json
@@ -62,6 +63,7 @@ A dsicord bot thats usefull
 
 ```
 > **IMPORTANT NOTE:** If you don't have the `members` intent enabled, commands that use a `discord.User` or `discord.Member` converter will only work with mentions
+</details>
 
 # Self Hosting
 No support will be provided if you try and self host this bot. It is open source for educational purposes only
