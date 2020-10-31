@@ -31,7 +31,9 @@ client = robot.Robot(
 	command_prefix=commands.when_mentioned_or(*prefixes),
 	case_insensitive=True,
 	owner_ids=config.owners,
-	intents=intents
+	intents=intents#,
+	#shard_ids=[0,1,2],
+	#shard_count=3
 )
 
 # Load dem extentions

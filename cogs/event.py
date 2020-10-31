@@ -56,13 +56,12 @@ class Events(commands.Cog):
 		elif (isinstance(err, discord.Forbidden)):
 			await ctx.error(ctx.strings.ERR_FORBIDDEN.format(err))
 		else:
-			# User feedback via reactions
 			if (self.bot.dev):
 				tracebackString = "".join(traceback.format_exception(type(err), err, err.__traceback__))
 				await ctx.warning(f"Ignoring exception in command {ctx.command}:")
 				await ctx.send(f"```py\n{tracebackString}\n```")
 			else:
-				await ctx.message.add_reaction(ctx.emoji.no)
+				await ctx.error(ctx.strings.ERR)
 				print(f"{c.FAIL}Ignoring exception in command {ctx.command}{c.END}:", file=sys.stderr)
 				traceback.print_exception(type(err), err, err.__traceback__, file=sys.stderr)
 

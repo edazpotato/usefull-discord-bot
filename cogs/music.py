@@ -12,8 +12,8 @@ class Music(commands.Cog):
 		self.ksoft = self.bot.ksoft
 
 	# Cough cough https://github.com/FireDiscordBot/bot/blob/master/cogs/ksoft.py
-	@commands.command(name="lyrics")
-	async def lyrics(self, ctx, songIndex: typing.Optional[int] = 0, *, query):
+	@commands.command(name="lyrics", aliases=["ly"], usage="[search result index] <song name>")
+	async def lyrics_command(self, ctx, songIndex: typing.Optional[int] = 0, *, query):
 		songs = None
 		async with usefull.Slow(ctx):
 			try:

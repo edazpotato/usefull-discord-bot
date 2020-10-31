@@ -27,9 +27,9 @@ try:
     import psutil
 except ImportError:
     psutil = None
-
+#Jishaku
 __all__ = (
-    "Jishaku",
+    "Admin",
     "JishakuBase",
     "jsk",
     "setup",
@@ -128,7 +128,7 @@ async def jsk(self, ctx: commands.Context):
     await ctx.send("\n".join(summary))
 
 
-class Jishaku(JishakuBase, metaclass=GroupCogMeta, command_parent=jsk):
+class Admin(JishakuBase, metaclass=GroupCogMeta, command_parent=jsk):
     """
     The frontend subclass that mixes in to form the final Jishaku cog.
     """
@@ -139,4 +139,4 @@ def setup(bot: commands.Bot):
     The setup function defining the jishaku.cog and jishaku extensions.
     """
 
-    bot.add_cog(Jishaku(bot=bot))
+    bot.add_cog(Admin(bot=bot))

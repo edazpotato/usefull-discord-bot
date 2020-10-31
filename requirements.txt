@@ -1,6 +1,6 @@
 discord.py[voice]
 ksoftapi
 jishaku
-statcord.py
+git+https://github.com/edazpotato/statcord.py.git
 asyncpg
 python-dateutil

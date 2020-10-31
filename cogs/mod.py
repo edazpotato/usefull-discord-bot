@@ -1,5 +1,6 @@
 import discord
 import datetime
+import typing
 from discord.ext import commands, tasks
 from utils import permissions
 
@@ -54,7 +55,7 @@ class Moderation(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command(name="kick")
+	@commands.command(name="kick", aliases=["yeet"], usage="<user to kick> [reason]")
 	@permissions.bot_has_permissions(kick_members=True)
 	@permissions.author_has_permissions(kick_members=True)
 	async def kick_comamnd(self, ctx, member: discord.Member, *, reason: ModActionReason=None):
@@ -63,7 +64,7 @@ class Moderation(commands.Cog):
 		await member.kick(reason=actionReason("kick", ctx.author, member, reason))
 		await self.actionEmbed(ctx, "kick", ctx.author, member, reason, "warning")
 
-	@commands.command(name="ban", aliases=["banish"])
+	@commands.command(name="ban", aliases=["banish"], usage="<user to ban> [reason]")
 	@permissions.bot_has_permissions(ban_members=True)
 	@permissions.author_has_permissions(ban_members=True)
 	async def ban_command(self, ctx, member: discord.Member, *, reason: ModActionReason=None):
@@ -72,7 +73,7 @@ class Moderation(commands.Cog):
 		#await member.ban(reason=actionReason("ban", ctx.author, member, reason))
 		await self.actionEmbed(ctx, "ban", ctx.author, member, reason, "alert")
 
-	@commands.command(name="unban", aliases=["unbanish"])
+	@commands.command(name="unban", aliases=["unbanish"], usage="<user id to unban> [reason]")
 	@permissions.bot_has_permissions(ban_members=True)
 	@permissions.author_has_permissions(ban_members=True)
 	async def unban_command(self, ctx, user: discord.User, *, reason: ModActionReason=None):
@@ -82,6 +83,14 @@ class Moderation(commands.Cog):
 			return await ctx.error(ctx.strings.ERR_CANNOT_UNBAN_NOT_BANNED_MEMBER)
 		await member.unban(reason=actionReason("ban", ctx.author, member, reason))
 		await self.actionEmbed(ctx, "unban", ctx.author, member, reason, "ok")
+
+	@commands.command(name="purge", aliases=["clear", "delete"], usage="[number of message to purge]")
+	@permissions.bot_has_permissions(manage_messages=True)
+	@permissions.author_has_permissions(manage_messages=True)
+	async def unban_command(self, ctx, *, num: typing.Optional[int]=1):
+		await ctx.message.delete()
+		await ctx.channel.purge(limit=num)
+		await ctx.success(ctx.strings.PURGE_DELETED_MESSAGES.format(num), delete_after=4)
 
 
 def setup(bot):

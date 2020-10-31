@@ -62,14 +62,16 @@ class Robot(commands.AutoShardedBot):
 	def load_config(self):
 		self.config = usefull.load("config.json")
 
-	async def update_presence(self, activity_type=None, activity_name=None, status_type=None):
+	async def update_presence(self, activity_type=None, activity_name=None, status_type=None, shard_id=None):
 		# Use defualts if they aren't provided
+		custom_activity = True
 		if (activity_type is None):
-			activity_type = self.config.activity_type
+			activity_type = activity_type="watching"
 		if (activity_name is None):
-			activity_name = self.config.activity
+			activity_name = f"for @{self.user.name} help"
+			custom_activity = False
 		if (status_type is None):
-			status_type = self.config.status_type
+			status_type = "online"
 
 		# Set a colour code for console output
 		status_color_code = c.OKBLUE
@@ -85,17 +87,23 @@ class Robot(commands.AutoShardedBot):
 		activity_name_extra = ""
 		if activity_num == 5:
 			activity_name_extra = " IN"
-		if self.config.use_custom_activity:
+		if custom_activity:
 			activity_name = f"{activity_name} | @{self.user.name} help"
+		if shard_id is not None:
+			activity_name = f"{activity_name} | shard {shard_id+1}/{self.shards[shard_id].shard_count}"
 		try:
 			await self.change_presence(
 				activity=discord.Activity(
 					type=activity_num,
 					name=activity_name
 				),
-				status=status_type
+				status=status_type,
+				shard_id=shard_id
 			)
-			print(f"{c.OKCYAN}Set presence to:                      {c.END}[{status_color_code}{status_type}{c.END}] {c.BOLD}{activity_type.upper()+activity_name_extra} {activity_name}{c.END}")
+			if shard_id is not None:
+				print(f"{c.OKCYAN}Set presence for shard {shard_id} to:          {c.END}[{status_color_code}{status_type}{c.END}] {c.BOLD}{activity_type.upper()+activity_name_extra} {activity_name}{c.END}")
+			else:
+				print(f"{c.OKCYAN}Set presence to:                      {c.END}[{status_color_code}{status_type}{c.END}] {c.BOLD}{activity_type.upper()+activity_name_extra} {activity_name}{c.END}")
 		except Exception as err:
 			print(f"{c.FAIl}Error setting status:{c.END} {err}")
 
@@ -108,7 +116,8 @@ class Robot(commands.AutoShardedBot):
 		if self.config.use_custom_activity:
 			await self.update_presence()
 		else:
-			await self.update_presence(status_type="online", activity_type="watching", activity_name=f"for @{self.user.name} help")
+			for shard_id in self.shards:
+				await self.update_presence(shard_id=self.shards[shard_id].id)
 
 	# handele commands yes
 	async def handle_commands(self, msg):

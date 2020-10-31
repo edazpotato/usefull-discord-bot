@@ -1,4 +1,6 @@
 {
+	"ERR": "Sorry, but an unknown error occured when I tried to do that.",
+	"ERR_API": "Sorry, but an something went wrong with the API when I tried to do that.",
 	"ERR_FORBIDDEN": "Sorry, but I'm not allowed to do that for some reason.",
 	"ERR_NOT_FOUND": "Sorry, but I couldn't find that resourse for some reason.",
 	"ERR_USER_NOT_FOUND": "Sorry, but I can't find that user,",
@@ -21,8 +23,19 @@
 	"ERR_MOD_CANNOT_PUNNISH_GUILD_OWNER": "Sorry, but you can't {0.command.name} the owner.",
 	"ERR_MOD_CANNOT_PUNNISH_AUTHOR_EQUAL": "Sorry, but you can't {0.command.name} someone who's top role is equal to yours.",
 	"ERR_MOD_CANNOT_PUNNISH_AUTHOR_HIGHER": "Sorry, but you can't {0.command.name} someone who's top role is higher than yours",
-	"URBAN_DEFINED_BY_ON": "Defined by {0} on ",
+	"PURGE_DELETED_MESSAGES": "Deleted {0} message(s).",
+	"ON_MENTION_WITHOUT_COMMAND_HELP_MSG": "My prefix here is `{0.config.guild.prefix}` or you can mention me with `@{0.me}`\nE.g. `{0.config.guild.prefix}help` or `@{0.me} help`",
+	"MEME_POSTED_BY_ON": "Posted by {0} on {1} ",
+	"ERR_MEME_SUBREDDIT_NOT_FOUND": "Sorry, but I couldn't find the Subreddit you specified.",
+	"ERR_MEME_COULDNT_GET_NON_NSFW": "Sorry, but this is a non-NSFW channel and I couldn't find any non-NSFW posts. Please move to a NSFW channel to view NSFW posts.",
+	"URBAN_DEFINED_BY_AT": "Defined by {0} ",
 	"URBAN_EMBED_DEFINITION_FIELD_TITLE": "Definition:",
 	"URBAN_EMBED_EXAMPLE_FIELD_TITLE": "Example:",
-	"ON_MENTION_WITHOUT_COMMAND_HELP_MSG": "My prefix here is `{0.config.guild.prefix}` or you can mention me with `@{0.me}`\nE.g. `{0.config.guild.prefix}help` or `@{0.me} help`"
+	"ERR_URBAN_DICTIONARY_ERR": "Sorry, an unknown error occured when trying to get that definition.",
+	"ERR_NO_URBAN_DICTIONARY_DEFINITION_FOUND": "Sorry, I couldn't find any definitions for that word.",
+	"ERR_ALLES_ACCOUNT_NOT_LINKED": "Sorry, but you need to link your AllesID on the web dashboard to do that.",
+	"ERR_ALLES_MISSING_ID_OR_NAME": "Sorry, but you need to specify the Alles `UserID` or `Name#Tag`.",
+	"ERR_ALLES_COULDNT_GET_ID": "Sorry, but I couldn'f find and Alles user with that name and tag.",
+	"ERR_ALLES_COULDNT_GET_DATA": "Sorry, but I couldn't find any data on that Alles user."
+	
 }

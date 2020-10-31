@@ -20,7 +20,8 @@ class Slow():
 
     async def __aexit__(self, exc_type, exc_value, tb):
         if exc_type is not None:
-            traceback.print_exception(exc_type, exc_value, tb)
+            pass
+            #traceback.print_exception(exc_type, exc_value, tb)
         await self.message.delete()
 
 class colors:
